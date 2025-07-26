@@ -10,7 +10,10 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/migueldeicaza/SwiftTerm", from: "1.2.5"),
         .package(url: "https://github.com/gonzalezreal/MarkdownUI", from: "1.1.0"),
-        .package(url: "https://github.com/kostub/iosMath", from: "0.9.5")
+        // Use the master branch of iosMath as the latest tagged release does not
+        // contain a Swift Package manifest. The master branch includes
+        // `Package.swift` enabling Swift Package Manager integration.
+        .package(url: "https://github.com/kostub/iosMath", branch: "master")
     ],
     targets: [
         .executableTarget(
