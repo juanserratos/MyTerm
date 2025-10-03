@@ -53,10 +53,10 @@ private struct PlaceholderView: View {
     var body: some View {
         VStack(spacing: 16) {
             Image(systemName: "square.and.pencil")
-                .font(.system(size: 40, weight: .ultraLight))
-                .foregroundStyle(.tertiary)
+                .font(.system(size: 34, weight: .ultraLight))
+                .foregroundStyle(.quaternary)
             Text("Select a note to view or create a new one")
-                .font(.headline)
+                .font(.system(size: 16, weight: .medium))
                 .foregroundStyle(.secondary)
         }
     }

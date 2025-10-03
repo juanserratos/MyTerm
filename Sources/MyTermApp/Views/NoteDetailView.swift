@@ -14,27 +14,27 @@ struct NoteDetailView: View {
     }
 
     private var header: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 4) {
             TextField("Title", text: $note.title)
                 .textFieldStyle(.plain)
-                .font(.system(size: 28, weight: .semibold))
+                .font(.system(size: 24, weight: .semibold))
                 .foregroundColor(.primary)
                 .onChange(of: note.title) { _ in
                     note.updatedAt = .now
                 }
 
             Text(note.updatedAt, format: .dateTime.month().day().year().hour().minute())
-                .font(.footnote)
+                .font(.system(size: 12))
                 .foregroundStyle(.secondary)
         }
-        .padding(.horizontal, 32)
-        .padding(.top, 24)
-        .padding(.bottom, 16)
+        .padding(.horizontal, 28)
+        .padding(.top, 22)
+        .padding(.bottom, 14)
     }
 
     private var editor: some View {
         NoteEditorContainer(note: $note)
-            .padding(.horizontal, 24)
-            .padding(.vertical, 20)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 18)
     }
 }
