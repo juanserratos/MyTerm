@@ -72,6 +72,16 @@ Block matrices like $\\begin{pmatrix}1 & 2\\\\3 & 4\\end{pmatrix}$ stay crisp, a
     }
 
     func createNote() {
+        if !searchText.isEmpty {
+            searchText = ""
+        }
+
+        let newNote = Note(title: "New Note", content: "")
+
+        withAnimation(.spring(response: 0.32, dampingFraction: 0.78)) {
+            notes.insert(newNote, at: 0)
+            selectedNoteID = newNote.id
+        }
         let newNote = Note(title: "New Note", content: "")
         notes.insert(newNote, at: 0)
         selectedNoteID = newNote.id

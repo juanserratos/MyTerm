@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUI
 import WebKit
 
@@ -45,6 +46,7 @@ struct NoteWebEditor: NSViewRepresentable {
 
         weak var webView: WKWebView?
         private var isLoaded = false
+        private var currentNoteID: UUID?
         private var lastSyncedContent: String = ""
         private var lastSyncedTitle: String = ""
         private var lastTheme: ColorScheme = .light
@@ -62,6 +64,21 @@ struct NoteWebEditor: NSViewRepresentable {
         }
 
         func updateNote(_ note: Note) {
+            if currentNoteID != note.id {
+                currentNoteID = note.id
+
+                if isLoaded {
+                    setContent(note.content)
+                    setTitle(note.title)
+                    focusEditor()
+                } else {
+                    pendingContent = note.content
+                    pendingTitle = note.title
+                }
+
+                return
+            }
+
             guard isLoaded else {
                 pendingContent = note.content
                 pendingTitle = note.title
@@ -105,6 +122,7 @@ struct NoteWebEditor: NSViewRepresentable {
             setContent(pendingContent)
             setTitle(pendingTitle)
             applyTheme(pendingTheme)
+            focusEditor()
         }
 
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
@@ -174,6 +192,10 @@ struct NoteWebEditor: NSViewRepresentable {
             let mode = theme == .dark ? "dark" : "light"
             let script = "window.noteBridge.setAppearance(\"\(mode)\");"
             webView?.evaluateJavaScript(script, completionHandler: nil)
+        }
+
+        private func focusEditor() {
+            webView?.evaluateJavaScript("window.noteBridge.focus();", completionHandler: nil)
         }
     }
 }
