@@ -1,0 +1,104 @@
+:root {
+    color-scheme: light dark;
+    --editor-background-light: #f8fafc;
+    --editor-background-dark: #05060a;
+    --editor-foreground-light: #0f172a;
+    --editor-foreground-dark: #f8fafc;
+    --editor-selection-light: rgba(15, 23, 42, 0.15);
+    --editor-selection-dark: rgba(148, 163, 184, 0.25);
+    --editor-font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--editor-font-family);
+    background: transparent;
+    color: var(--editor-foreground-light);
+}
+
+body.dark {
+    color: var(--editor-foreground-dark);
+}
+
+#editor-shell {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, rgba(15, 17, 23, 0.08), rgba(9, 9, 11, 0.14));
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+#note-editor {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 32px 40px 80px 40px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: inherit;
+    background-color: rgba(255, 255, 255, 0.82);
+    border: none;
+    outline: none;
+    overflow-y: auto;
+    -webkit-user-select: text;
+}
+
+body.dark #note-editor {
+    background-color: rgba(15, 17, 23, 0.78);
+}
+
+#note-editor:focus {
+    box-shadow: inset 0 0 0 2px rgba(94, 234, 212, 0.35);
+    border-radius: 18px;
+}
+
+#note-editor div {
+    min-height: 1.2em;
+}
+
+#note-editor .math-fragment {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 4px;
+    border-radius: 8px;
+    background: rgba(94, 234, 212, 0.12);
+    margin: 0 2px;
+    cursor: pointer;
+}
+
+#note-editor .math-fragment.math-display {
+    display: block;
+    padding: 12px 16px;
+    margin: 12px 0;
+    text-align: center;
+}
+
+#note-editor .math-fragment:hover {
+    background: rgba(94, 234, 212, 0.22);
+}
+
+#note-editor .math-error {
+    background: rgba(239, 68, 68, 0.18);
+    color: #ef4444;
+}
+
+#note-editor ::selection {
+    background: var(--editor-selection-light);
+}
+
+body.dark #note-editor ::selection {
+    background: var(--editor-selection-dark);
+}
+
+.katex-display {
+    margin: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        color: var(--editor-foreground-dark);
+    }
+}
