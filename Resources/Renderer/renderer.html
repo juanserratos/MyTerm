@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-VZFGxUY8ailqXFz3vGN9VOGBev5nYeD1yfknhk+aoCA8DmFumiQJ5AZt0ArO7E2W" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-+04UD58Ll35H5TADaBrZEcD3xKhsR4HIX66vepQP9en5ZaY1fZLrSSAG2wE8xmPK" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            color-scheme: light dark;
+        }
+        body {
+            margin: 0;
+            font-family: "SF Pro", "Inter", system-ui, -apple-system, BlinkMacSystemFont;
+            background: transparent;
+        }
+        #container {
+            padding: 12px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+        window.renderKatex = async function(tex, displayMode, macrosJSON) {
+            const macros = JSON.parse(macrosJSON || '{}');
+            const container = document.getElementById('container');
+            container.innerHTML = '';
+            katex.render(tex, container, {
+                displayMode: displayMode === true || displayMode === 'true',
+                throwOnError: false,
+                macros
+            });
+            await new Promise(resolve => requestAnimationFrame(resolve));
+            const rect = container.getBoundingClientRect();
+            return {
+                width: Math.ceil(rect.width),
+                height: Math.ceil(rect.height)
+            };
+        }
+    </script>
+</body>
+</html>
