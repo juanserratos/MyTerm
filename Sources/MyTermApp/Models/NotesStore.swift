@@ -82,6 +82,9 @@ Block matrices like $\\begin{pmatrix}1 & 2\\\\3 & 4\\end{pmatrix}$ stay crisp, a
             notes.insert(newNote, at: 0)
             selectedNoteID = newNote.id
         }
+        let newNote = Note(title: "New Note", content: "")
+        notes.insert(newNote, at: 0)
+        selectedNoteID = newNote.id
     }
 
     func deleteNotes(at offsets: IndexSet) {

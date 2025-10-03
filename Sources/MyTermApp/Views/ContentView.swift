@@ -49,6 +49,33 @@ struct ContentView: View {
         .safeAreaInset(edge: .top, spacing: 0) {
             TitleBarChrome()
         }
+        HStack(spacing: 0) {
+            SidebarView(notes: filteredNotes)
+                .frame(width: 280)
+                .background(sidebarBackground)
+                .overlay(alignment: .top) {
+                    LinearGradient(
+                        colors: [Color.black.opacity(0.16), Color.clear],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .frame(height: 80)
+                }
+
+            Divider()
+                .blendMode(.overlay)
+
+            if let binding = store.binding(for: store.selectedNoteID) {
+                NoteDetailView(note: binding)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .transition(.opacity)
+            } else {
+                PlaceholderView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+        }
+        .background(mainBackground)
+        .ignoresSafeArea()
     }
 
     private var sidebarBackground: some View {
@@ -56,6 +83,8 @@ struct ContentView: View {
             colors: [
                 Color(hex: 0x05060A).opacity(colorScheme == .dark ? 0.92 : 0.08),
                 Color(hex: 0x080B12).opacity(colorScheme == .dark ? 0.88 : 0.05)
+                Color(hex: 0x05060A).opacity(colorScheme == .dark ? 0.92 : 0.06),
+                Color(hex: 0x0B0D12).opacity(colorScheme == .dark ? 0.88 : 0.04)
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
@@ -90,6 +119,11 @@ struct ContentView: View {
             .opacity(colorScheme == .dark ? 0.22 : 0.08)
             .blur(radius: 160)
         )
+            gradient: Gradient(colors: [Color(hex: 0x05060A), Color(hex: 0x0F1116)]),
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        .opacity(colorScheme == .dark ? 1.0 : 0.08)
         .background(colorScheme == .dark ? Color.black : Color(nsColor: .textBackgroundColor))
     }
 }
