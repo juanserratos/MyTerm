@@ -1,0 +1,170 @@
+:root {
+    color-scheme: light dark;
+    --editor-background-light: rgba(255, 255, 255, 0.82);
+    --editor-background-dark: rgba(12, 14, 19, 0.86);
+    --editor-foreground-light: #0f172a;
+    --editor-foreground-dark: #f8fafc;
+    --editor-selection-light: rgba(15, 23, 42, 0.18);
+    --editor-selection-dark: rgba(148, 163, 184, 0.28);
+    --editor-font-family: "Söhne", "Inter", "SF Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --monospace-font: "SFMono-Regular", "JetBrains Mono", "Menlo", monospace;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: var(--editor-font-family);
+    background: radial-gradient(circle at 0% 0%, rgba(79, 70, 229, 0.18), transparent 55%),
+        radial-gradient(circle at 120% -20%, rgba(20, 184, 166, 0.22), transparent 60%),
+        transparent;
+    color: var(--editor-foreground-dark);
+    -webkit-font-smoothing: antialiased;
+}
+
+body.light {
+    color: var(--editor-foreground-light);
+}
+
+#editor-shell {
+    height: 100%;
+    width: 100%;
+    padding: 32px 42px 64px;
+}
+
+#note-editor {
+    min-height: 100%;
+    outline: none;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 450;
+    letter-spacing: 0.01em;
+    color: inherit;
+    caret-color: #7dd3fc;
+}
+
+#note-editor div {
+    margin-bottom: 8px;
+}
+
+#note-editor div:last-child {
+    margin-bottom: 0;
+}
+
+#note-editor:empty::before {
+    content: "Start typing. Use $...$ or $$...$$ for LaTeX.";
+    color: rgba(148, 163, 184, 0.7);
+}
+
+::selection {
+    background-color: var(--editor-selection-dark);
+}
+
+body.light ::selection {
+    background-color: var(--editor-selection-light);
+}
+
+.math-fragment {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 12px;
+    padding: 4px 10px;
+    margin: 2px 0;
+    background: rgba(125, 211, 252, 0.12);
+    backdrop-filter: blur(12px);
+    transition: background 0.2s ease;
+}
+
+body.light .math-fragment {
+    background: rgba(14, 116, 144, 0.08);
+}
+
+.math-fragment.math-display {
+    display: block;
+    padding: 16px 18px;
+    margin: 12px auto;
+    text-align: center;
+    border-radius: 18px;
+}
+
+.math-fragment:hover {
+    background: rgba(56, 189, 248, 0.22);
+}
+
+.math-fragment.math-display:hover {
+    background: rgba(56, 189, 248, 0.18);
+}
+
+.math-inline .katex {
+    font-size: 1em;
+}
+
+.math-display .katex-display {
+    margin: 0;
+}
+
+.math-fragment[data-latex] {
+    position: relative;
+    cursor: pointer;
+}
+
+.math-fragment[data-latex]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid transparent;
+    transition: border 0.2s ease;
+}
+
+.math-fragment[data-latex]:hover::after {
+    border-color: rgba(56, 189, 248, 0.5);
+}
+
+.math-error {
+    background: rgba(248, 113, 113, 0.12) !important;
+    color: #fecaca;
+}
+
+body.light .math-error {
+    color: #b91c1c;
+}
+
+.katex-display > .katex {
+    text-align: center;
+}
+
+[data-katex-environment] {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+[data-katex-environment]::before {
+    content: attr(data-katex-environment);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgba(94, 234, 212, 0.22);
+    color: rgba(45, 212, 191, 0.92);
+}
+
+body.light [data-katex-environment]::before {
+    background: rgba(56, 189, 248, 0.18);
+    color: rgba(14, 116, 144, 0.9);
+}
+
+code, pre {
+    font-family: var(--monospace-font);
+}
